@@ -21,7 +21,7 @@ $result = $conn->query($sql);
 } ?>
 
 
-<form action="index.php" method="GET">
+<form action="auth.php" method="GET">
     <input type="text" name="search_data">
     <input type="submit" value="Search">
 </form>

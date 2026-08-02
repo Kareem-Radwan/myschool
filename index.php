@@ -20,8 +20,10 @@ $result = $conn->query($sql);
 
 <?php if($_SERVER["REQUEST_METHOD"] === "POST"){
     $student_id = $_POST["student_id"];
-    $sql = "DELETE FROM students WHERE student_id = $student_id";
-    $conn->query($sql);
+    $sql = "DELETE FROM students WHERE student_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $student_id);
+    $stmt->execute();
     header("Location: index.php");
 }?>
 

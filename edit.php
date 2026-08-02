@@ -13,9 +13,12 @@ $conn = connection();
         $student_age = htmlspecialchars($_POST["student_age"]);
     }
 
-    $sql = "UPDATE students SET student_name = '$student_name', student_age = $student_age, updated_at = NOW() WHERE student_id = $student_id";
-
-    $conn->query($sql);
+    // created_at format acceptable for database as timestamp
+    $created_at = date("Y-m-d H:i:s");
+    $sql = "UPDATE students SET student_name = ?, student_age = ?, updated_at = ? WHERE student_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sisi", $student_name, $student_age, $created_at, $student_id);
+    $stmt->execute();
     header("Location: index.php");
 }
 ?>

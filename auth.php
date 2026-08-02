@@ -53,7 +53,8 @@ $result = $conn->query($sql);
     </tbody>
     <tfoot>
         <tr>
-            <th colspan="5"><a href="createauth.php">Add Data</a></th>
+            <th colspan="2"><a href="createauth.php">Add Data</a></th>
+            <th colspan="3"><a href="login.php">Login User</a></th>
         </tr>
     </tfoot>
 </table>

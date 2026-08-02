@@ -1,6 +1,7 @@
 <?php
 require_once "connection.php";
 $conn = connection();
+session_start();
 ?>
 
 <?php if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -24,6 +25,8 @@ $conn = connection();
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("isss", $user_id, $user_name, $user_password, $user_type);
     $stmt->execute();
+    $_SESSION["user_name"] = $user_name;
+    $_SESSION["user_type"] = $user_type;
     header("Location: auth.php");
 }
 ?>

@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once "connection.php";
 $conn = connection();
 $search = !empty($_GET["search_data"]) ? $_GET["search_data"] : 0;
@@ -25,36 +26,45 @@ $result = $conn->query($sql);
     <input type="text" name="search_data">
     <input type="submit" value="Search">
 </form>
-<table border="2">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>User</th>
-            <th>Type</th>
-            <th>Actions</th>
-            <th>Delete</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php while ($data = $result->fetch_assoc()): ?>
+<form action="logout.php" method="POST">
+    <input type="submit" value="Logout">
+</form>
+
+<h1><?= isset($_SESSION["user_name"]) ? $_SESSION["user_name"] : "" ?></h1>
+<h3><?= isset($_SESSION["user_type"]) ? $_SESSION["user_type"] : "" ?></h3>
+
+<?php if (isset($_SESSION["user_name"]) && $_SESSION["user_type"] === "admin"): ?>
+    <table border="2">
+        <thead>
             <tr>
-                <td><?= $data["user_id"] ?></td>
-                <td><?= $data["user_name"] ?></td>
-                <td><?= $data["user_type"] ?></td>
-                <td><a href="editauth.php?id=<?= $data["user_id"] ?>">Edit User</a></td>
-                <td>
-                    <form action="index.php" method="POST">
-                        <input type="hidden" name="user_id" value="<?= $data["user_id"] ?>">
-                        <input type="submit" value="Delete">
-                    </form>
-                </td>
+                <th>Id</th>
+                <th>User</th>
+                <th>Type</th>
+                <th>Actions</th>
+                <th>Delete</th>
             </tr>
-        <?php endwhile ?>
-    </tbody>
-    <tfoot>
-        <tr>
-            <th colspan="2"><a href="createauth.php">Add Data</a></th>
-            <th colspan="3"><a href="login.php">Login User</a></th>
-        </tr>
-    </tfoot>
-</table>
+        </thead>
+        <tbody>
+            <?php while ($data = $result->fetch_assoc()): ?>
+                <tr>
+                    <td><?= $data["user_id"] ?></td>
+                    <td><?= $data["user_name"] ?></td>
+                    <td><?= $data["user_type"] ?></td>
+                    <td><a href="editauth.php?id=<?= $data["user_id"] ?>">Edit User</a></td>
+                    <td>
+                        <form action="auth.php" method="POST">
+                            <input type="hidden" name="user_id" value="<?= $data["user_id"] ?>">
+                            <input type="submit" value="Delete">
+                        </form>
+                    </td>
+                </tr>
+            <?php endwhile ?>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="2"><a href="createauth.php">Add Data</a></th>
+                <th colspan="3"><a href="login.php">Login User</a></th>
+            </tr>
+        </tfoot>
+    </table>
+<?php endif ?>

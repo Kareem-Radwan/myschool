@@ -8,7 +8,7 @@ $conn = connection();
     $user_name = $user_type = $user_password = "";
     $user_type = $_POST["user_type"];
     $user_name = htmlspecialchars($_POST["user_name"]);
-    $user_password = htmlspecialchars($_POST["user_password"]);
+    $user_password = password_hash(htmlspecialchars($_POST["user_password"]), PASSWORD_DEFAULT);
 
     if (filter_var($_POST["user_id"], FILTER_VALIDATE_INT)) {
         $user_id = (int) $_POST["user_id"];

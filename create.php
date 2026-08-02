@@ -17,8 +17,10 @@ $conn = connection();
         $student_age = htmlspecialchars($_POST["student_age"]);
     }
 
-    $sql = "INSERT INTO students(student_id, student_name, student_age) VALUES ($student_id, '$student_name', $student_age)";
-    $conn->query($sql);
+    $sql = "INSERT INTO students(student_id, student_name, student_age) VALUES (?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("isi", $student_id, $student_name, $student_age);
+    $stmt->execute();
     header("Location: index.php");
 }
 ?>

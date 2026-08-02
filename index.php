@@ -60,7 +60,8 @@ $result = $conn->query($sql);
     </tbody>
     <tfoot>
         <tr>
-            <th colspan="5"><a href="create.php">Add Data</a></th>
+            <th colspan="2"><a href="create.php">Add Data</a></th>
+            <th colspan="3"><a href="auth.php">Authenticate</a></th>
         </tr>
     </tfoot>
 </table>

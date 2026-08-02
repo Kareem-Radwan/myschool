@@ -11,9 +11,9 @@ $conn = connection();
 $search = !empty($_GET["search_data"]) ? $_GET["search_data"] : 0 ;
 
 if ($search == 0) {
-    $sql = "SELECT * FROM students";
+    $sql = "SELECT * FROM students ORDER BY created_at";
 } else {
-    $sql = "SELECT * FROM students WHERE student_name LIKE '%$search%'";
+    $sql = "SELECT * FROM students WHERE student_name LIKE '%$search%' ORDER BY created_at";
 }
 $result = $conn->query($sql);
 ?>

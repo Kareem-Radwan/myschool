@@ -1,0 +1,5 @@
+XSS -> Cross Site Scripting
+    - Passing script inside inputs elements
+
+SQL Injection 
+    - Write SQL Attacks queries inside inputs
